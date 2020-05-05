@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  jupyter:
+    build: .
+    image: self_dev_ex
+    container_name: self_dev
+    ports:
+      - "8888:8888"
+    volumes:
+      - "${BASE_PATH}/notebooks:/home/jovyan/work"
+      - "${BASE_PATH}/datasets:/home/jovyan/datasets"
+      - "${BASE_PATH}/modules:/home/jovyan/modules"
+      - "${BASE_PATH}/models:/home/jovyan/models"
+    command: "start-notebook.sh --NotebookApp.password=${ACCESS_TOKEN}"
+
+  # postgres:
+  #   image: postgres
+  #   container_name: "postgres"
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: root
+  #   volumes:
+  #     - ./postgres_data:/var/lib/postgresql/data
